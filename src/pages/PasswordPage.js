@@ -1,14 +1,16 @@
 import React from 'react';
+import PasswordForms from '../forms/PasswordForms';
+import logo from '../imagens/react01.png'
 
 const PasswordPage = () => (
     <div className="row">
         <div className="col-md-4 offset-md-4">
-            <div className="card">
-                <div className="card-body">
-                    <div className="text-center">
-                        <h5>Esqueci minha senha</h5>
-                        <hr />
-                    </div>
+           <div className="justify-content-center d-flex"> 
+                <i className="fab fa-react text-primary p-3" style={{fontSize:"80px"}}></i>
+           </div>
+            <div className="card shadow">
+                <div className="card-body">   
+                    <PasswordForms/>
                 </div>
             </div>
         </div>
