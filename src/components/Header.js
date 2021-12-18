@@ -8,7 +8,7 @@ export default function Header() {
                 <div className="container">
                     
                     <a className="navbar-brand baloo" href="#"> 
-                        <i className="fas fa-address-card mx-2 bg-secondary p-2 rounded-circle"></i>
+                        <i className="fas fa-address-card mx-2 bg-white p-2 rounded-circle border border-white border-3 text-dark"></i>
                         Controle de Contatos
                     </a>
 
@@ -28,7 +28,7 @@ export default function Header() {
                         <ul className="navbar-nav mb-2 mb-lg-0 ms-auto px-2">
 
                             <li className="nav-item mx-2">
-                                <NavLink className="nav-link active baloo" aria-current="page" to="/">
+                                <NavLink className="nav-link active baloo text" aria-current="page" to="/">
                                     <i className="fas fa-sign-out-alt m-1"></i> Acessar conta
                                 </NavLink>
                             </li>

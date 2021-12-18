@@ -3,59 +3,49 @@ import React from 'react'
 export default function RegisterForms() {
     return (
         <form>
-        
-            <div className="form-group row">
-            <div className="col-12">
-                <label className="mt-4 mb-1">Nome do usuário:</label>
-                <input
-                    type="text"
-                    placeholder="Nome e sobrenome"
-                    className="form-control">        
-                               
-                </input>  
-            </div>              
+            <div className='row justify-content-center d-flex mb-1 mt-3'>
+                <div className='col-md-12 baloo'>
+                    <input 
+                        type="text" 
+                        className='form-control'
+                        placeholder='Nome completo'>
+                    </input>
+                </div>
             </div>
 
-            <div className="form-group row">
-            <div className="col-12">
-                <label className="mt-3 mb-1">Email de acesso:</label>
-                <input
-                    type="email"
-                    placeholder="Endereço de e-mail"
-                    className="form-control">                   
-                </input>
-            </div>               
+            <div className='row mb-1'>
+                <div className='col-md-12 baloo'>
+                    <input 
+                        type="email" 
+                        className='form-control'
+                        placeholder='Endereço de e-mail'>
+                    </input>
+                </div>
             </div>
 
-            <div className="row mt-2">
-            <div className="col-md-6">
-                <label className="mt-4">Senha de acesso:</label>
-                <input
-                    type="password"
-                    placeholder="Senha"
-                    className="form-control">                  
-                </input>
-            </div>
-            <div className="col-md-6 mt-5">
-                <input
-                    type="password"
-                    placeholder="Confirme sua senha"
-                    className="form-control">                  
-                </input> 
-            </div>
+            <div className='row mb-1'>
+                <div className='col-md-12 baloo'>
+                    <input 
+                        type="password" 
+                        className='form-control'
+                        placeholder='Senha'>
+                    </input>
+                </div>
             </div>
 
-            <div className="form-group row">
-            <div className="col-md-12">
-            <div className="text-center mt-4">
-                <button
-                    type="submit" 
-                    className="btn btn-primary">
-                        Criar conta
-                </button>
+            <div className='row mb-1'>
+                <div className='col-md-12 baloo'>
+                    <input 
+                        type="password" 
+                        className='form-control'
+                        placeholder='Confirme a senha'>
+                    </input>
+                </div>
             </div>
-            </div>
-            </div>
+            <button type='submit' className='btn btn-primary btn-sm col-12 mt-3'>Cadastre-se</button>
+            <p className='text-center text-secondary mt-3' 
+                style={{fontSize:11}}>Ao se cadastrar, você concorda com nossos Termos, Política de Dados e Política de Cookies.
+            </p>
         </form>
-            )
+    )
 }
