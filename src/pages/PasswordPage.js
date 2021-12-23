@@ -1,6 +1,6 @@
 import React from 'react';
 import PasswordForms from '../forms/PasswordForms';
-import logo from '../imagens/react01.png'
+
 
 const PasswordPage = () => (
     <div className="row">
@@ -13,7 +13,8 @@ const PasswordPage = () => (
                     <PasswordForms/>
                 </div>
             </div>
-        </div>
+
+        </div>       
     </div>
 )
 export default PasswordPage;
