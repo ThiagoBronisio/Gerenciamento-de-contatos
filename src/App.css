@@ -1,11 +1,67 @@
 header{
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: #202020;
 }
 
 body {
-  background-color: #eeeeee;
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #202020;
 }
+
+.bgInp {
+  background-color: #202020 !important ; 
+  color: white;
+}
+
+
+.BaiJamjuree {
+  font-family: 'Bai Jamjuree';
+}
+
 .baloo {
   font-family: 'Baloo 2', cursive;
 }
+
+.card {
+  background-color: rgba(129, 129, 129, 0.082);
+  border-color: rgba(255, 255, 255, 0.089);
+}
+
+.BaiJamjuree {
+  font-family: 'Bai Jamjuree', sans-serif;
+}
+
+body.swal2-shown > [aria-hidden="true"] {
+  transition: 0.1s filter;
+  filter: blur(10px);
+}
+
+.swal2-popup {
+  font-size: 18px !important;
+  font-family: 'Baloo 2', cursive !important;
+}
+
+
+.my-swal {
+  background: rgba(129, 129, 129, 0.082) !important;
+  color: white !important;
+  width :430px !important;
+  border-radius: 20px !important;
+}
+
+.my-error {
+  background: rgba(129, 129, 129, 0.082) !important;
+  color: white !important;
+  width :430px !important;
+  border-radius: 20px !important;
+}
+
+.my-fotter {
+  color: white !important;
+}
+
+.form-control:focus {border-color:#6A5ACD!important;
+  -webkit-box-shadow: none!important;
+      -moz-box-shadow: none!important;
+      box-shadow: none!important;
+      color: white !important;
+  }

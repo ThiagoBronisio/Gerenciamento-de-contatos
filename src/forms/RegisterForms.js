@@ -4,6 +4,8 @@ import * as accountServices from '../../src/services/account-services';
 import textFieldValidation from '../validations/textfield-validation';
 import passwordValidation from '../validations/password-validation';
 import emailValidation from '../validations/email-validation';
+import { NavLink } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 export default function RegisterForms() {
     
@@ -22,7 +24,15 @@ export default function RegisterForms() {
         accountServices.postRegister(data)
             .then( //calback sucesso
                 result => {
-                    setMensagemSucesso(result.message);
+                    Swal.fire({
+                        position: 'top-center',
+                        icon: 'success',
+                        text: result.message,
+                        showConfirmButton: false,
+                        timer: 2500,
+                        iconHtml: '<i class="fa fa-check"></i>',
+                        customClass: { popup: 'my-swal'}
+                      })
                     reset({
                         nome: '',
                         email: '',
@@ -34,7 +44,41 @@ export default function RegisterForms() {
             
             .catch( //calback erro
                 e => {
-                    setMensagemErro(e.response.data);
+                    switch(e.response.status){
+                        case 422:
+                            Swal.fire({
+                                position: 'top-center',
+                                icon: 'error',
+                                text: e.response.data,
+                                showConfirmButton: false,
+                                timer: 3000,
+                                iconHtml: '<i class="fas fa-times"></i>',
+                                customClass: { popup: 'my-error' },     
+                            })
+                            break;
+                        case 400: 
+                            Swal.fire({
+                                position: 'top-center',
+                                icon: 'error',
+                                text: "Senhas não conferem",
+                                timer: 2500,
+                                showConfirmButton: false,
+                                iconHtml: '<i class="fas fa-times"></i>',
+                                customClass: { popup: 'my-error' }
+                            })
+                            break;
+                        default:
+                            Swal.fire({
+                                position: 'top-center',
+                                icon: 'error',
+                                text: 'Falha ao se registrar, tente mais tarde',
+                                timer: 2500,
+                                showConfirmButton: false,
+                                iconHtml: '<i class="fas fa-times"></i>',
+                                customClass: { popup: 'my-error' }
+                              })
+                            break;
+                    }
                 }
             );
     }
@@ -43,20 +87,11 @@ export default function RegisterForms() {
     
     
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            {
-                mensagemSucesso && <div className='alert alert-success'>
-                    <strong>Parabéns, cadastro realizado!</strong> {mensagemSucesso}
-                </div>
-            }
-            
-            {
-                mensagemErro && <div className='alert alert-danger'>
-                    <strong>Erro!</strong> {mensagemErro}
-                </div>
-            }
+        <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
 
-            <div className='row justify-content-center d-flex mb-1 mt-3'>
+            
+
+            <div className='row justify-content-center d-flex mb-1 mt-4'>
                 <div className='col-md-12 baloo'>
                 <Controller
                         control={control}
@@ -68,7 +103,7 @@ export default function RegisterForms() {
                                     <input
                                         type= "text"
                                         placeholder='Nome completo'
-                                        className='form-control baloo'
+                                        className='form-control baloo bgInp card'
                                         onChange={onChange}
                                         onBlur={onBlur}
                                         value={value}
@@ -96,7 +131,7 @@ export default function RegisterForms() {
                                     <input
                                         type= "email"
                                         placeholder='E-mail'
-                                        className='form-control baloo'
+                                        className='form-control baloo bgInp card'
                                         onChange={onChange}
                                         onBlur={onBlur}
                                         value={value}
@@ -124,7 +159,7 @@ export default function RegisterForms() {
                                         <input
                                             type= "password"
                                             placeholder='Senha'
-                                            className='form-control baloo'
+                                            className='form-control baloo bgInp card'
                                             onChange={onChange}
                                             onBlur={onBlur}
                                             value={value}
@@ -152,7 +187,7 @@ export default function RegisterForms() {
                                         <input
                                             type= "password"
                                             placeholder='Confirme sua senha'
-                                            className='form-control baloo'
+                                            className='form-control baloo bgInp card'
                                             onChange={onChange}
                                             onBlur={onBlur}
                                             value={value}
@@ -167,12 +202,21 @@ export default function RegisterForms() {
                     }
                 </div>
             </div>
-                
-            <input type='submit' value="Realizar Cadastro" className='btn btn-primary btn-sm col-12 mt-3' /> 
 
-            <p className='text-center text-secondary mt-3' 
-                style={{fontSize:11}}>Ao se cadastrar, você concorda com nossos Termos, Política de Dados e Política de Cookies.
-            </p>
+            <div className='text-center'>
+                <div className='col-md-12'>   
+                    <input type='submit' value="Realizar Cadastro" className='btn col-12 mt-3 baloo text-light' style={{background:'#6A5ACD'}} /> 
+            
+                    <p className='text-center text-secondary mt-1' 
+                        style={{fontSize:11}}>Ao se cadastrar, você concorda com nossos Termos, Política de Dados e Política de Cookies.
+                    </p>
+            <hr style={{color: 'white'}}/>
+                    <NavLink to="/">
+                        <button className="btn btn-outline-secondary col-6 baloo text-light" type="submit">Acessar conta</button>
+                    </NavLink>
+            
+                </div>
+            </div>
         </form>
     )
 }

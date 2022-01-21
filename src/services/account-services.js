@@ -22,3 +22,12 @@ export const postLogin = (data) => {
         )
 
 }
+
+export const postPassword = (data) => {
+    return axios.post(getApiUrl() + "/api/Account/PasswordRecover", data)
+        .then(
+            response => {
+                return response.data;
+            }
+        )
+}

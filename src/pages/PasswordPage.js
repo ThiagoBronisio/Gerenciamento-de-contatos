@@ -4,11 +4,8 @@ import PasswordForms from '../forms/PasswordForms';
 
 const PasswordPage = () => (
     <div className="row">
-        <div className="col-md-4 offset-md-4">
-           <div className="justify-content-center d-flex"> 
-                <i className="fab fa-react text-primary p-3" style={{fontSize:"80px"}}></i>
-           </div>
-            <div className="card shadow">
+        <div className="col-md-4 offset-md-4 justify-content-center mt-5">
+            <div className="card shadow" style={{borderRadius: 15}}>
                 <div className="card-body">   
                     <PasswordForms/>
                 </div>

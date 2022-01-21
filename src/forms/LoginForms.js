@@ -4,6 +4,10 @@ import * as accountServices from "../../src/services/account-services";
 import { NavLink } from "react-router-dom";
 import passwordValidation from "../validations/password-validation";
 import emailValidation from "../validations/email-validation";
+import * as authHelpers from "../helpers/auth-helpers";
+import Swal from "sweetalert2";
+
+
 
 
 export default function LoginForms() {
@@ -19,35 +23,64 @@ export default function LoginForms() {
 
     } = useForm();
 
+
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+
     const onSubmit = (data) => {
-        
+
         setMensagemSucesso('');
         setMensagemErro('');
 
         accountServices.postLogin(data)
-            .then( 
+            .then(
                 result => {
-                    setMensagemSucesso(result.message);
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Conectado com sucesso'
+                    });
+
+                    authHelpers.singIn(result);
+
                     reset({
                         email: "",
                         senha: ""
                     });
+                    window.location.href = "/consultar-contatos"
                 }
             )
 
             .catch(
                 e => {
-                    setMensagemErro(e.response.data)
+                    Swal.fire({
+                        position: 'top-center',
+                        icon: 'error',
+                        text: e.response.data,
+                        timer: 2300,
+                        showConfirmButton: false,
+                        iconHtml: '<i class="fas fa-times"></i>',
+                        customClass: { popup: 'my-error' }
+
+                    })
                 }
             );
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form autoComplete="off" style={{ paddingTop: 25, paddingRight: 35, paddingLeft: 35, paddingBottom: 1 }} onSubmit={handleSubmit(onSubmit)}>
 
             {
                 mensagemErro && <div className="alert alert-danger text-center">
-                        <strong>{mensagemErro}</strong> 
+                    <strong>{mensagemErro}</strong>
                 </div>
             }
 
@@ -55,29 +88,32 @@ export default function LoginForms() {
             <div className="row mb-2">
                 <div className="col-md-12">
 
-                    <label className="baloo">E-mail:</label>
+
+                    <label className="baloo text-light">E-mail:</label>
                     <Controller
                         control={control}
                         name="email"
                         defaultValue=''
                         rules={{ validate: emailValidation }}
                         render={
-                            ({field: {onChange, onBlur, value} }) => (
+                            ({ field: { onChange, onBlur, value } }) => (
                                 <input
                                     id="email"
                                     type="email"
-                                    className="form-control baloo"
+                                    className="form-control baloo bgInp card"
+                                    placeholder="Qual o seu e-mail ?"
                                     onChange={onChange}
                                     onBlur={onBlur}
                                     value={value}
-                                    
+
+
                                 />
                             )
                         }
                     />
                     {
-                        errors.email && <div className="text-danger"> 
-                                {errors.email.message}
+                        errors.email && <div className="text-danger">
+                            {errors.email.message}
                         </div>
                     }
 
@@ -86,17 +122,18 @@ export default function LoginForms() {
 
             <div className="row mb-4">
                 <div className="col-md-12">
-                    <label className="baloo">Senha:</label>
+                    <label className="baloo text-light">Senha:</label>
                     <Controller
                         control={control}
                         name="senha"
                         defaultValue=""
                         rules={{ validate: passwordValidation }}
                         render={
-                            ({field : {onChange, onBlur, value} }) => (
+                            ({ field: { onChange, onBlur, value } }) => (
                                 <input
                                     type="password"
-                                    className="form-control baloo"
+                                    className="form-control baloo bgInp card"
+                                    placeholder="Informe sua senha"
                                     onChange={onChange}
                                     onBlur={onBlur}
                                     value={value}
@@ -106,7 +143,7 @@ export default function LoginForms() {
                     />
                     {
                         errors.senha && <div className="text-danger">
-                                {errors.senha.message}
+                            {errors.senha.message}
                         </div>
                     }
                 </div>
@@ -114,14 +151,14 @@ export default function LoginForms() {
 
             <div className="text-center">
                 <div className="col-md-12">
-                    <button type="submit" className="btn btn-primary col-12 baloo">
+                    <button type="submit" className="btn col-12 baloo text-light" style={{ background: '#6A5ACD' }}>
                         Acessar
                     </button>
-                    <NavLink to="esqueci-minha-senha"><button type="submit" className="btn btn-white col-12 mt-2 baloo text-primary">
+                    <NavLink to="esqueci-minha-senha"><button type="submit" className="btn btn-white col-12 mt-2 baloo text-light">
                         Esqueci senha
                     </button></NavLink>
-                    <hr />
-                    <NavLink to="/criar-conta"> <button type="submit" className="btn btn-success col-6 mt-2 baloo">
+                    <hr style={{ color: 'white' }} />
+                    <NavLink to="/criar-conta"> <button type="submit" className="btn btn-outline-secondary col-6 mt-2 baloo text-light">
                         Criar conta
                     </button></NavLink>
                 </div>
